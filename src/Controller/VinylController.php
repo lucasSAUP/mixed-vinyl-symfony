@@ -20,7 +20,13 @@ class VinylController extends AbstractController
             ['song' => 'On Bended Knee', 'artist' => 'Boyz II Men'],
             ['song' => 'Fantasy', 'artist' => 'Mariah Carey'],
         ];
-        
+
+        // //dd sirve para ver lo que hay dentro de un objeto y mata la pagina
+        // dd($tracks);
+
+        // //Con dump vemos lo mismo para no mata la pagina y nos muestro lo que hay dentro del objeto en la barra de depuracion del debug composer
+        // dump($tracks);
+
         return $this->render('vinyl/homepage.html.twig', [
             'title' => 'PB & Jams',
             'tracks' => $tracks,
