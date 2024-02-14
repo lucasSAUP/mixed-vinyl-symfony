@@ -1,16 +1,16 @@
 <?php
 namespace App\Controller;
 
+use Symfony\Component\String\u;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\u;
 
 class VinylController extends AbstractController
  {
 
-    #[Route(path:"/")]
-    public function homepage() : Response {
+    #[Route(path:"/", name:"app_homepage")]
+    public function homepage(  ) : Response {
 
         $tracks = [
             ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
@@ -20,6 +20,7 @@ class VinylController extends AbstractController
             ['song' => 'On Bended Knee', 'artist' => 'Boyz II Men'],
             ['song' => 'Fantasy', 'artist' => 'Mariah Carey'],
         ];
+
 
         // //dd sirve para ver lo que hay dentro de un objeto y mata la pagina
         // dd($tracks);
@@ -33,19 +34,26 @@ class VinylController extends AbstractController
         ]);
     }
 
+
     // {slug} o la palabra que queramos será la palabra tecnica para designar un "Nombre seguro para la url y que lo conozca"
-    #[Route(path:'/browse/{slug}', name:'')]       
+    #[Route(path:'/browse/{slug}', name:'app_browse')]       
     public function browse( string $slug = null) : Response {
 
-       if( $slug) 
-       {
+    //    if( $slug) 
+    //    {
        
-        $title = 'Genre: ' .str_replace('-', ' ', $slug );
+    //     $title = 'Genre: ' .str_replace('-', ' ', $slug );
         
-    }
-    else {
-        $title = 'Todos los generos';
-    }
-        return new Response( $title );
+    // }
+    // else {
+    //     $title = 'Todos los generos';
+    // }
+
+       $genre = $slug ? str_replace('-', ' ', $slug )  : null;
+
+        return $this->render('vinyl/browse.html.twig', [
+            'genre'=> $genre,
+        ]);
+
     }
 }
